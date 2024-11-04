@@ -24,9 +24,9 @@ function FavoriteButton({ pokemonId, isInline }) {
   );
 }
 
+export default FavoriteButton;
+
 FavoriteButton.propTypes = {
   pokemonId: PropTypes.number.isRequired,
   isInline: PropTypes.bool,
 };
-
-export default FavoriteButton;
