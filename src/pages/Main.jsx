@@ -5,25 +5,25 @@ import { fetchPokemons } from '../store/pokemonSlice';
 
 function Main() {
   const dispatch = useDispatch();
-  const { list, listStatus, listError } = useSelector((state) => state.pokemon);
+  const { list, status, error } = useSelector((state) => state.pokemon);
 
   useEffect(() => {
-    console.log('Current state:', { list, listStatus, listError });
-  }, [list, listStatus, listError]);
+    console.log('Main: Current state:', { list, status, error });
+  }, [list, status, error]);
 
   useEffect(() => {
-    if (listStatus === 'idle') {
+    if (status === 'idle') {
       dispatch(fetchPokemons());
     }
-  }, [listStatus, dispatch]);
+  }, [status, dispatch]);
 
-  if (listStatus === 'loading')
+  if (status === 'loading')
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div className="text-xl">로딩 중...</div>
       </div>
     );
-  if (listError) return <div>{listError}</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <ul className="flex gap-4 flex-wrap p-6">
