@@ -28,7 +28,7 @@ const TYPE_MAPPING = {
 
 // 전체 포켓몬 데이터 가져오기 액션
 export const fetchPokemons = createAsyncThunk('pokemon/fetchPokemons', async () => {
-  const response = await axios.get(`${POKEMON_URL}?offset=0&limit=20`);
+  const response = await axios.get(`${POKEMON_URL}?offset=0&limit=151`);
   const results = response.data.results;
 
   // 각 포켓몬의 상세 정보 가져오기
