@@ -3,8 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchPokemons } from '../store/pokemonSlice';
 import { selectPokemonById } from '../store/pokemonSelector';
+import IcBack from '../assets/image/arrow-left.svg';
+import { useNavigate } from 'react-router-dom';
+import Loading from '../components/Loading';
+import ErrorMessage from '../components/ErrorMessage';
+import FavoriteButton from '../components/FavoriteButton';
 
 function Detail() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
   const { status, error } = useSelector((state) => state.pokemon);
@@ -16,15 +22,9 @@ function Detail() {
     }
   }, [dispatch, status]);
 
-  if (status === 'loading')
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-xl">로딩 중...</div>
-      </div>
-    );
-  if (error) return <div>{error}</div>;
-
-  if (!pokemon) return <div>포켓몬을 찾을 수 없습니다.</div>;
+  if (status === 'loading') return <Loading />;
+  if (error) return <ErrorMessage message={error} />;
+  if (!pokemon) return <div className="p-6 text-gray-500">포켓몬을 찾을 수 없습니다.</div>;
 
   const details = [
     { label: '이름', value: pokemon.name },
@@ -36,10 +36,19 @@ function Detail() {
 
   return (
     <div className="m-6 p-6 border rounded-lg">
-      <h2 className="text-xl font-bold">
-        No.{id.padStart(3, 0)} {pokemon.name}
+      <button onClick={() => navigate(-1)} aria-label="뒤로 가기">
+        <img src={IcBack} alt="" className="w-6 h-6" />
+      </button>
+      <h2 className="flex items-center gap-1 text-xl font-bold">
+        <span>
+          No.{id.padStart(3, 0)} {pokemon.name}
+        </span>
+        <FavoriteButton pokemonId={pokemon.id} isInline={true} />
       </h2>
-      <img src={pokemon.image} alt={pokemon.name} className="w-32 h-32 object-contain" />
+      <div className="flex">
+        <img src={pokemon.front} alt={`${pokemon.name} 앞모슴`} className="w-32 h-32 object-contain" />
+        <img src={pokemon.back} alt={`${pokemon.name} 뒷모습`} className="w-32 h-32 object-contain" />
+      </div>
       <ul>
         {details.map((item, index) => (
           <li key={index} className="flex gap-4 p-2 border-b text-gray-700 last:border-none">

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Search from './Search';
+import SearchInput from './SearchInput';
 
 function Header() {
   return (
@@ -8,10 +8,12 @@ function Header() {
         <Link to="/">포켓몬 도감</Link>
       </h1>
       <wbr />
-      <Search />
+      <SearchInput />
       <ul className="flex gap-6">
         <li>
-          <Link to="/favorite">찜 목록</Link>
+          <Link to="/favorite" className="flex items-center gap-2">
+            <span className="text-2xl">♥</span> 찜 목록
+          </Link>
         </li>
       </ul>
     </header>

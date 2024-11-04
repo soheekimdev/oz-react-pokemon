@@ -1,8 +1,16 @@
+import { useSelector } from 'react-redux';
+import { selectFavoritePokemons } from '../store/pokemonSelector';
+import PokemonCard from '../components/PokemonCard';
+
 function Favorite() {
+  const pokemon = useSelector(selectFavoritePokemons);
+
   return (
-    <>
-      <div>Favorite 페이지</div>
-    </>
+    <ul className="flex gap-4 flex-wrap p-6">
+      {pokemon.map((el) => (
+        <PokemonCard key={el.id} pokemon={el} />
+      ))}
+    </ul>
   );
 }
 

@@ -55,7 +55,8 @@ export const fetchPokemons = createAsyncThunk('pokemon/fetchPokemons', async () 
       })),
       height: pokemonResponse.data.height / 10, // m 단위로 변환
       weight: pokemonResponse.data.weight / 10, // kg 단위로 변환
-      image: pokemonResponse.data.sprites.front_default,
+      front: pokemonResponse.data.sprites.front_default,
+      back: pokemonResponse.data.sprites.back_default,
       description: description,
     };
   });
@@ -71,9 +72,7 @@ export const pokemonSlice = createSlice({
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
   },
-  reducers: {
-    // 찜하기 추가/제거
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchPokemons.pending, (state) => {

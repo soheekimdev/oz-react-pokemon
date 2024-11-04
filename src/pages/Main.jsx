@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPokemons } from '../store/pokemonSlice';
+import PokemonCard from '../components/PokemonCard';
+import Loading from '../components/Loading';
+import ErrorMessage from '../components/ErrorMessage';
 
 function Main() {
   const dispatch = useDispatch();
@@ -17,26 +19,13 @@ function Main() {
     }
   }, [status, dispatch]);
 
-  if (status === 'loading')
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-xl">로딩 중...</div>
-      </div>
-    );
-  if (error) return <div>{error}</div>;
+  if (status === 'loading') return <Loading />;
+  if (error) return <ErrorMessage message={error} />;
 
   return (
     <ul className="flex gap-4 flex-wrap p-6">
       {list.map((pokemon) => (
-        <li
-          key={pokemon.id}
-          className="flex flex-col items-center gap-2 p-4 border rounded-lg hover:shadow-lg transition-shadow"
-        >
-          <Link to={`/detail/${pokemon.id}`}>
-            <img src={pokemon.image} alt={pokemon.name} className="w-32 h-32 object-contain" />
-            <p className="text-center capitalize">{pokemon.name}</p>
-          </Link>
-        </li>
+        <PokemonCard key={pokemon.id} pokemon={pokemon} />
       ))}
     </ul>
   );
