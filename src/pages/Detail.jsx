@@ -36,7 +36,9 @@ function Detail() {
 
   return (
     <div className="m-6 p-6 border rounded-lg">
-      <h2 className="text-xl font-bold">상세 정보</h2>
+      <h2 className="text-xl font-bold">
+        No.{id.padStart(3, 0)} {pokemon.name}
+      </h2>
       <img src={pokemon.image} alt={pokemon.name} className="w-32 h-32 object-contain" />
       <ul>
         {details.map((item, index) => (

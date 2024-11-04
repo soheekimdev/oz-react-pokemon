@@ -4,7 +4,7 @@ function Search() {
   const searchRef = useRef('');
 
   return (
-    <div className="flex gap-3">
+    <div className="flex-1 flex gap-3">
       🔎
       <input type="search" ref={searchRef} className="border" />
     </div>
